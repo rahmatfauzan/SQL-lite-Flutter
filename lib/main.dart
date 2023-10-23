@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:sqllite/sql_helper.dart';
+import 'package:sqllite/tes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,6 +67,14 @@ class _MyHomePageState extends State<MyHomePage> {
           return ListTile(
             title: Text(catatan[index]['judul']),
             subtitle: Text(catatan[index]['deskripsi']),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) =>
+                      tes(catatan[index]['judul'], catatan[index]['id']),
+                ),
+              );
+            },
             trailing: SizedBox(
               width: 120,
               child: Row(
@@ -108,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void modalForm(int id) async {
-    if (id != null) {
+    if (id != -1) {
       final dataCatatan = catatan.firstWhere((element) => element['id'] == id);
       JudulController.text = dataCatatan['deskripsi'];
     }
